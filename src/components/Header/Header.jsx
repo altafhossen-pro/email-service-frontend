@@ -1,14 +1,26 @@
 'use client';
 
+import { clearUser } from "@/features/user/userSlice";
+import { deleteCookie } from "cookies-next";
 import { Mail, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
 
 const Header = () => {
+    const dispatch = useDispatch();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { user, loading } = useSelector((state) => state.auth);
 
+    const handleLogOut = () => {
+        deleteCookie('token');
+        deleteCookie('user');
+        setIsMenuOpen(false);
+        dispatch(clearUser());
+        // setProfileDropdownOpen(false);
+        toast.success('লগ আউট সফল হয়েছে।');
+    }
 
     return (
         <header className="bg-white shadow-sm sticky top-0 z-50">
@@ -40,9 +52,9 @@ const Header = () => {
                                 <Link href={`/dashboard`} className="text-gray-600 hover:text-blue-600 transition-colors">
                                     Dashboard
                                 </Link>
-                                <Link href={`/logout`} className="bg-red-500 text-white px-4 py-1 rounded transition-colors">
+                                <button onClick={handleLogOut} className="bg-red-500 text-white px-4 py-1 rounded transition-colors">
                                     Logout
-                                </Link>
+                                </button>
                             </div>
                         ) : <div className="hidden md:flex items-center space-x-4">
                             <Link href={`/login`} className="text-gray-600 hover:text-blue-600 transition-colors">Login</Link>

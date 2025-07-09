@@ -1,14 +1,24 @@
 'use client'
 
+import { clearUser } from '@/features/user/userSlice';
+import { deleteCookie } from 'cookies-next';
 import { Bell, Search, User, LogOut, Settings, Menu, X } from 'lucide-react'
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import toast from 'react-hot-toast';
+import { useDispatch, useSelector } from 'react-redux'
 
 export default function Header({ onMobileMenuClick }) {
+    const dispatch = useDispatch();
     const { user, loading } = useSelector((state) => state.auth);
     const [showDropdown, setShowDropdown] = useState(false);
     const [showMobileSearch, setShowMobileSearch] = useState(false);
     console.log(user);
+    const handleLogOut = () => {
+        deleteCookie('token');
+        deleteCookie('user');
+        dispatch(clearUser());
+        toast.success('লগ আউট সফল হয়েছে।');
+    }
 
     return (
         <header className="bg-white shadow-sm border-b border-gray-200">
@@ -87,7 +97,7 @@ export default function Header({ onMobileMenuClick }) {
                                         Settings
                                     </button>
                                     <hr className="my-1" />
-                                    <button className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+                                    <button onClick={handleLogOut} className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
                                         <LogOut className="w-4 h-4 mr-2" />
                                         Sign out
                                     </button>

@@ -50,8 +50,8 @@ export default function LoginPage() {
                                 maxAge: 60 * 60 * 24 * 365,
                                 path: '/',
                             });
+                            console.log(data);
                             dispatch(setUser(data?.data?.user));
-                            // console.log(data?.data?.user);
                             router.push('/dashboard');
                         }
                     } else {

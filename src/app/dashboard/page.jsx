@@ -23,6 +23,7 @@ import { useSelector } from 'react-redux';
 export default function Dashboard() {
     // Mock user data - replace with actual Redux data
     const user = useSelector((state) => state.auth.user);
+    const loading = useSelector((state) => state.auth.loading);
 
     const formatDate = (dateString) => {
         return new Date(dateString).toLocaleDateString('en-US', {
@@ -42,6 +43,13 @@ export default function Dashboard() {
         { icon: Key, label: "Generate API Key" },
         { icon: Settings, label: "Settings" }
     ];
+    if(loading) {   
+        return (
+            <div className="flex items-center justify-center min-h-screen">
+                <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-blue-500"></div>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen ">

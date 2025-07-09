@@ -91,7 +91,7 @@ export default function Dashboard() {
                             </div>
                             <div className="text-right">
                                 <p className="text-2xl font-bold text-gray-900">
-                                    {user.usageStats.daily.emailsSent}
+                                    {user?.usageStats?.daily.emailsSent}
                                 </p>
                                 <p className="text-sm text-gray-500">Daily Emails</p>
                             </div>
@@ -99,13 +99,13 @@ export default function Dashboard() {
                         <div className="mb-2">
                             <div className="flex justify-between text-sm text-gray-600 mb-1">
                                 <span>Usage</span>
-                                <span>{user.subscription.features.dailyEmails} limit</span>
+                                <span>{user.subscription?.features?.dailyEmails} limit</span>
                             </div>
                             <div className="bg-gray-100 rounded-full h-2">
                                 <div
                                     className="bg-gradient-to-r from-blue-500 to-blue-600 h-2 rounded-full transition-all duration-500"
                                     style={{
-                                        width: `${getUsagePercentage(user.usageStats.daily.emailsSent, user.subscription.features.dailyEmails)}%`
+                                        width: `${getUsagePercentage(user?.usageStats?.daily?.emailsSent, user.subscription?.features?.dailyEmails)}%`
                                     }}
                                 />
                             </div>
